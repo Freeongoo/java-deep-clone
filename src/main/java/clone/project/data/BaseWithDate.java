@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class BaseData implements Serializable {
+public class BaseWithDate implements Serializable {
 
     private static final long serialVersionUID = -6349983832172906810L;
 
@@ -12,7 +12,10 @@ public class BaseData implements Serializable {
     private String name;
     private Date date;
 
-    public BaseData(Long id, String name, Date date) {
+    public BaseWithDate() {
+    }
+
+    public BaseWithDate(Long id, String name, Date date) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -46,10 +49,10 @@ public class BaseData implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BaseData baseData = (BaseData) o;
-        return Objects.equals(id, baseData.id) &&
-                Objects.equals(name, baseData.name) &&
-                Objects.equals(date, baseData.date);
+        BaseWithDate baseWithDate = (BaseWithDate) o;
+        return Objects.equals(id, baseWithDate.id) &&
+                Objects.equals(name, baseWithDate.name) &&
+                Objects.equals(date, baseWithDate.date);
     }
 
     @Override
@@ -60,7 +63,7 @@ public class BaseData implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("BaseData{");
+        final StringBuilder sb = new StringBuilder("BaseWithDate{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", date=").append(date);

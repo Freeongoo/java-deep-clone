@@ -1,7 +1,7 @@
 package clone.project.apacheCommons;
 
-import clone.project.data.BaseData;
-import clone.project.data.Data;
+import clone.project.data.BaseWithDate;
+import clone.project.data.DataExtendBaseWithDate;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 
@@ -16,29 +16,38 @@ public class ApacheCommonsCloneTest {
 
     @Test
     public void cloneTest_WhenWithoutInheritance() {
-        BaseData baseData = new BaseData(123L, "String", new Date(123321232));
-        BaseData clonedBaseData = SerializationUtils.clone(baseData);
+        BaseWithDate baseWithDate = new BaseWithDate(123L, "String", new Date(123321232));
+        BaseWithDate clonedBaseWithDate = SerializationUtils.clone(baseWithDate);
 
-        assertThat(baseData, equalTo(clonedBaseData));
+        assertThat(baseWithDate, equalTo(clonedBaseWithDate));
     }
 
     @Test
     public void cloneTest_WhenWithInheritance() {
         List<String> strings = new ArrayList<>();
         strings.add("someStr");
-        Data data = new Data(123L, "String", new Date(123321232), 1.1F, strings);
-        Data clonedData = SerializationUtils.clone(data);
+        DataExtendBaseWithDate dataExtendBaseWithDate = new DataExtendBaseWithDate(123L, "String", new Date(123321232), 1.1F, strings);
+        DataExtendBaseWithDate clonedDataExtendBaseWithDate = SerializationUtils.clone(dataExtendBaseWithDate);
 
-        assertThat(data, equalTo(clonedData));
+        assertThat(dataExtendBaseWithDate, equalTo(clonedDataExtendBaseWithDate));
+    }
+
+    @Test
+    public void cloneTest_WhenNullField() {
+        BaseWithDate baseWithDate = new BaseWithDate(123L, "String", new Date(123321232));
+        baseWithDate.setId(null);
+        BaseWithDate clonedBaseWithDate = SerializationUtils.clone(baseWithDate);
+
+        assertThat(baseWithDate, equalTo(clonedBaseWithDate));
     }
 
     @Test
     public void cloneTest_WhenTryChangeClonedObject() {
-        BaseData baseData = new BaseData(123L, "String", new Date(123321232));
-        BaseData clonedBaseData = SerializationUtils.clone(baseData);
+        BaseWithDate baseWithDate = new BaseWithDate(123L, "String", new Date(123321232));
+        BaseWithDate clonedBaseWithDate = SerializationUtils.clone(baseWithDate);
 
-        clonedBaseData.setId(null);
+        clonedBaseWithDate.setId(null);
 
-        assertThat(baseData.getId(), equalTo(123L));
+        assertThat(baseWithDate.getId(), equalTo(123L));
     }
 }
